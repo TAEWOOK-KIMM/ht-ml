@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오늘 하루도 수고했어</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>오늘 하루도 수고했어</h1>
+        <div>
+            <label for="name">이름:</label>
+            <input type="text" id="name">
+        </div>
+        <div>
+            <label for="emotion">지금 내 감정:</label>
+            <select id="emotion" name="emotion"> 
+                <option value="">--감정을 선택해주세요--</option>
+                <option value="기쁨">기쁨</option>
+                <option value="슬픔">슬픔</option>
+                <option value="분노">분노</option>
+                <option value="두려움">두려움</option>
+                <option value="부러움">부러움</option>
+                <option value="박탈감">박탈감</option>
+                <option value="외로움">외로움</option>
+                <option value="힘듦">힘듦</option>
+                <option value="걱정됨">걱정됨</option>
+            </select>
+        </div>
+        <div>
+            <label for="description">설명:</label>
+            <input type="text" id="description">
+        </div>
+        <button id="add-button">추가하기</button>
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>작성자</th>
+                    <th>감정</th>
+                    <th>설명</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+    </div>
+    <script src="scripts.js"></script>
+    
+</body>
+</html>
+
