@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tic Tac Toe</title>
+<link rel="stylesheet" href="Tic Tac Toe.css"/>
+
+</head>
+<body>
+<img src="https://search.pstatic.net/common/?src=http%3A%2F%2Fblogfiles.naver.net%2FMjAyMTA1MTlfMjMx%2FMDAxNjIxNDI0OTMzMzUz.ZMTD0fV3BcmVhk6NqW7VbCRQbp1gaYY2vdyOJhVUSeMg.You-7HeRgxMqaBB_Bjyq6q2b5Ss95M6oYNLSyCdeSHcg.PNG.alwm4545%2FMasthead%25A3%25DFyoshi.17345b1513ac044897cfc243542899dce541e8dc.9afde10b.png&type=sc960_832" alt="Yoshi" class="yoshi-image">
+
+<div class="container">
+  <h1 class="title">Tic Tac Toe!</h1>
+  <div class="board" id="board">
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>  
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+  </div>
+  <div class="result" id="result"></div>
+</div>
+<script>
+  const cells = document.querySelectorAll('.cell');
+  const resultDisplay = document.getElementById('result');
+
+  let currentPlayer = 'X';
+  let winner = null;
+  let moves = 0;
+
+
+  cells.forEach(cell => {
+    cell.addEventListener('click', handleCellClick);
+  });
+
+  
+  function handleCellClick(event) {
+    const cell = event.target;
+
+    if (cell.textContent !== '' || winner) return;
+
+    cell.textContent = currentPlayer;
+    moves++;
+
+    if (checkWinner(currentPlayer)) {
+      winner = currentPlayer;
+      resultDisplay.textContent = '너가 이겼음!';
+    } else if (moves === 9) {
+      resultDisplay.textContent = '비김!';
+    } else {
+      currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      if (currentPlayer === 'O') {
+        setTimeout(computerMove, 500);
+      }
+    }
+  }
+
+  function computerMove() {
+    if (winner) return;
+
+    let randomIndex;
+    do {
+      randomIndex = Math.floor(Math.random() * 9);
+    } while (cells[randomIndex].textContent !== '');
+
+    cells[randomIndex].textContent = 'O';
+    moves++;
+
+    if (checkWinner('O')) {
+      winner = 'O';
+      resultDisplay.textContent = '컴퓨터가 이겼음! 왤케 못함?ㅋㅋ';
+    } else if (moves === 9) {
+      resultDisplay.textContent = '비김!';
+    } else {
+      currentPlayer = 'X';
+    }
+  }
+
+  function checkWinner(player) {
+    const winningConditions = [
+    [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+    [2, 4, 6], [0, 4, 8], [2, 5, 8], 
+    [1, 4, 7], [0, 3, 6]
+
+    ];
+  return winningConditions.some((condition) => {
+      const [a, b, c] = condition;
+      return cells[a].textContent === player &&
+        cells[a].textContent === cells[b].textContent &&
+        cells[a].textContent === cells[c].textContent;
+    });
+  }
+ function resetGame() {
+    cells.forEach(cell => {
+      cell.textContent = '';
+    });
+    currentPlayer = 'X';
+    winner = null;
+    moves = 0;
+    resultDisplay.textContent = '';
+  }
+   
+  resultDisplay.addEventListener('click', resetGame);
+</script>
+</body>
+</html>
